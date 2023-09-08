@@ -1,3 +1,4 @@
 databases
+*journal
 node_modules
 freeotp*.json
