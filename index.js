@@ -8,6 +8,7 @@ let tokensCount = 0;
 
 async function run() {
   const sql = await AsyncDatabase.open("./databases");
+  await sql.run(`DELETE FROM "main"."accounts"`);
   for (const tokenJson of inputJson.tokens) {
     const token = {
       title: inputJson.tokenOrder[inputJson.tokens.indexOf(tokenJson)],
@@ -15,7 +16,6 @@ async function run() {
     };
 
     try {
-      await sql.run(`DELETE FROM "main"."accounts"`);
       tokensCount++
       await sql.run(`INSERT INTO "main"."accounts"("_id","email","secret","type","original_name") VALUES (NULL,'${token.title}','${token.secret}',0,"${token.title}");`)
     } catch (e) {
